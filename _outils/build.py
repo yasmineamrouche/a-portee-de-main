@@ -175,7 +175,6 @@ def home(lang):
         <a class="btn" href="#ecrire">Je préfère écrire</a>
       </div>
     </div>
-    <figure class="hero__fig"><img class="hero__logo" src="img/logo.png" alt="Logo À portée de main – Within Reach : une main qui tient une fleur de lotus" width="300" height="300"><figcaption class="slogan">Les ressources existent. Nous les rendons visibles.</figcaption></figure>
   </div>
 </section>
 
@@ -243,7 +242,6 @@ def home(lang):
         <a class="btn" href="#ecrire">I'd rather write</a>
       </div>
     </div>
-    <figure class="hero__fig"><img class="hero__logo" src="../img/logo.png" alt="À portée de main – Within Reach logo: a hand holding a lotus flower" width="300" height="300"><figcaption class="slogan">The resources exist. We make them visible.</figcaption></figure>
   </div>
 </section>
 
@@ -453,6 +451,7 @@ def apropos(lang):
 <section class="section">
   <div class="wrap two">
     <div class="stack">
+      <img class="about__logo" src="img/logo.png" alt="Logo À portée de main – Within Reach : une main qui tient une fleur de lotus" width="240" height="240">
       <p class="eyebrow">À propos</p>
       <h1>Le projet</h1>
       {ornament()}
@@ -497,6 +496,7 @@ def apropos(lang):
 <section class="section">
   <div class="wrap two">
     <div class="stack">
+      <img class="about__logo" src="../img/logo.png" alt="À portée de main – Within Reach logo: a hand holding a lotus flower" width="240" height="240">
       <p class="eyebrow">About</p>
       <h1>The project</h1>
       {ornament()}
