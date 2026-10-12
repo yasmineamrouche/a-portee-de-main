@@ -1,0 +1,28 @@
+À portée de main / Within Reach — site web statique
+====================================================
+
+Contenu
+- index.html, ressources.html (par besoin), regions.html, repertoire.html,
+  comprendre.html, a-propos.html : pages en français
+- en/ : les mêmes pages en anglais
+- style.css : toute la mise en forme (une seule feuille pour tout le site)
+- img/ : logo, fleur de lotus, icônes
+
+Mettre en ligne
+Téléversez tout le dossier tel quel (GitHub Pages, Netlify, Cloudflare Pages,
+ou l'hébergement de votre choix). Aucune base de données ni compilation.
+Le code QR des affiches doit pointer vers l'adresse de index.html.
+
+Modifier une ressource
+Chaque ressource apparaît dans plusieurs pages (par besoin, par région,
+répertoire). Cherchez son nom (Ctrl+F) dans chaque fichier .html, en français
+et dans en/, pour la modifier partout.
+
+Bouton « Quitter rapidement »
+Il mène à google.com. Une seule ligne de JavaScript (location.replace) évite
+que le bouton « retour » ramène au site ; sans JavaScript, le lien fonctionne quand même.
+
+Dossier _outils (pour Claude ou une personne technique)
+data.py contient toutes les ressources (FR/EN), build.py régénère toutes les
+pages HTML à partir de ces données : python3 _outils/build.py
+Modifier data.py puis relancer build.py met à jour une ressource partout d'un coup.
