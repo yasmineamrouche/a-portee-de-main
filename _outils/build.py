@@ -440,11 +440,11 @@ def comprendre(lang):
 
 def apropos(lang):
     fr = lang == "fr"
-    team = [("Yasmine Amrouche","étudiante en médecine","medical student"),
-            ("Denisse Dan","étudiante en médecine","medical student"),
-            ("Daniel Palladino","étudiant en médecine et pharmacien","medical student and pharmacist"),
-            ("Malika Djouamaa","étudiante en médecine et pharmacienne","medical student and pharmacist"),
-            ("Imed Chafi","pharmacien","pharmacist")]
+    team = [("Yasmine Amrouche","Étudiante en médecine, fondatrice","Medical student, founder"),
+            ("Denisse Dan","Étudiante en médecine","Medical student"),
+            ("Daniel Palladino","Étudiant en médecine et pharmacien","Medical student and pharmacist"),
+            ("Malika Djouamaa","Étudiante en médecine et pharmacienne","Medical student and pharmacist"),
+            ("Imed Chafi","Pharmacien","Pharmacist")]
     team_html = "".join(f"<li><strong>{E(n)}</strong><span>{E(f if fr else e)}</span></li>" for n, f, e in team)
     if fr:
         b = f'''
