@@ -221,7 +221,6 @@ def home(lang):
 
 <section class="section section--tint" aria-label="Message important">
   <div class="wrap stack">
-    {ornament()}
     <p class="callout">Vous n'avez pas besoin d'attendre que la situation devienne grave pour demander de l'aide. Des ressources existent pour vous accompagner, quelle que soit votre situation : violence physique ou psychologique, contrôle, surveillance, menaces, isolement ou violence sexuelle. Vous pouvez également trouver du soutien si vous vous inquiétez pour une personne proche.</p>
     <div class="actions"><a class="btn" href="ressources.html">Voir les ressources par besoin</a><a class="btn" href="comprendre.html">Je ne sais pas par où commencer</a></div>
   </div>
@@ -239,7 +238,7 @@ def home(lang):
       <div class="actions">
         <a class="btn btn--primary" href="ressources.html">Find a resource</a>
         <a class="btn" href="#parler">Talk to someone now</a>
-        <a class="btn" href="#ecrire">I'd rather write</a>
+        <a class="btn" href="#ecrire">I prefer texting</a>
       </div>
     </div>
   </div>
@@ -257,7 +256,7 @@ def home(lang):
     </article>
     <article class="panel" id="ecrire">
       <p class="eyebrow">In writing</p>
-      <h2>I'd rather write</h2>
+      <h2>I prefer texting</h2>
       <ul class="contacts">
         <li><span class="k">Text</span><a href="sms:4386011211">438 601-1211</a></li>
         <li><span class="k">Chat</span><a href="https://sosviolenceconjugale.ca/en" target="_blank" rel="noopener noreferrer">sosviolenceconjugale.ca</a></li>
@@ -288,7 +287,6 @@ def home(lang):
 
 <section class="section section--tint" aria-label="Important message">
   <div class="wrap stack">
-    {ornament()}
     <p class="callout">You don't have to wait until things get serious to ask for help. Resources exist to support you, whatever your situation: physical or psychological violence, control, monitoring, threats, isolation or sexual violence. You can also find support if you are worried about someone close to you.</p>
     <div class="actions"><a class="btn" href="ressources.html">See resources by need</a><a class="btn" href="comprendre.html">I don't know where to start</a></div>
   </div>
@@ -427,7 +425,6 @@ def comprendre(lang):
 <section class="section section--tint">
   <div class="wrap two">
     <div class="stack">
-      {ornament()}
       <h2>{"Vous pouvez demander de l'aide même si…" if fr else "You can ask for help even if…"}</h2>
     </div>
     <div class="stack">
@@ -449,15 +446,14 @@ def apropos(lang):
     if fr:
         b = f'''
 <section class="section">
-  <div class="wrap two">
-    <div class="stack">
-      <img class="about__logo" src="img/logo.png" alt="Logo À portée de main – Within Reach : une main qui tient une fleur de lotus" width="240" height="240">
+  <div class="wrap about-hero">
+    <figure class="about-brand">
+      <img class="about-brand__logo" src="img/logo.png" alt="Logo À portée de main – Within Reach : une main qui tient une fleur de lotus" width="220" height="220">
+      <figcaption class="about-brand__slogan">Les ressources existent.<br>Nous les rendons visibles.</figcaption>
+    </figure>
+    <div class="stack prose">
       <p class="eyebrow">À propos</p>
       <h1>Le projet</h1>
-      {ornament()}
-      <p class="slogan" style="font-size:var(--step-1)">Les ressources existent. Nous les rendons visibles.</p>
-    </div>
-    <div class="stack prose">
       <p>De nombreuses ressources spécialisées en violence conjugale existent au Québec. Pourtant, elles ne sont pas toujours connues des personnes qui pourraient en bénéficier, particulièrement lorsque demander de l'aide est difficile ou comporte des risques.</p>
       <p><strong>À portée de main</strong> vise à réduire cette barrière en rendant les ressources existantes visibles dans les espaces du quotidien.</p>
       <ul class="bullets">
@@ -481,28 +477,29 @@ def apropos(lang):
   </div>
 </section>
 <section class="section" id="contact">
-  <div class="wrap stack prose">
+  <div class="wrap"><div class="stack prose">
     <h2>Collaborer avec nous</h2>
-    <p>Vous êtes un organisme, une intervenante ou un milieu qui souhaite afficher nos affiches ? Écrivez-nous.</p>
-    <ul class="contacts">
-      <li><span class="k">Courriel</span><a href="mailto:aporteedemain.withinreach@gmail.com">aporteedemain.withinreach@gmail.com</a></li>
-      <li><span class="k">Instagram</span><a href="https://www.instagram.com/within_reach.ca/" target="_blank" rel="noopener noreferrer">@within_reach.ca</a> <span class="x">(message direct)</span></li>
-    </ul>
-    <p class="small muted">Cette adresse n'est pas un service d'aide. Pour parler à quelqu'un, appelez SOS violence conjugale au 1 800 363-9010, ou le 911 en cas d'urgence.</p>
-  </div>
+    <p>Vous avez un commerce, une clinique ou un autre lieu et souhaitez obtenir une affiche&nbsp;? Vous êtes un organisme ou une intervenante et aimeriez collaborer avec nous&nbsp;? Contactez-nous.</p>
+    <div class="reach">
+      <p class="reach__label">Notre moyen de communication préféré</p>
+      <a class="btn btn--primary" href="https://www.instagram.com/within_reach.ca/" target="_blank" rel="noopener noreferrer">Écrivez-nous sur Instagram · @within_reach.ca</a>
+      <p class="small muted">Envoyez-nous un message direct : c'est là que nous répondons le plus rapidement.</p>
+    </div>
+    <p>Vous pouvez aussi nous écrire par courriel : <a href="mailto:aporteedemain.withinreach@gmail.com">aporteedemain.withinreach@gmail.com</a></p>
+    <p class="small muted">Ces adresses ne sont pas un service d'aide. Pour parler à quelqu'un, appelez SOS violence conjugale au 1 800 363-9010, ou le 911 en cas d'urgence.</p>
+  </div></div>
 </section>'''
     else:
         b = f'''
 <section class="section">
-  <div class="wrap two">
-    <div class="stack">
-      <img class="about__logo" src="../img/logo.png" alt="À portée de main – Within Reach logo: a hand holding a lotus flower" width="240" height="240">
+  <div class="wrap about-hero">
+    <figure class="about-brand">
+      <img class="about-brand__logo" src="../img/logo.png" alt="À portée de main – Within Reach logo: a hand holding a lotus flower" width="220" height="220">
+      <figcaption class="about-brand__slogan">The resources exist.<br>We make them visible.</figcaption>
+    </figure>
+    <div class="stack prose">
       <p class="eyebrow">About</p>
       <h1>The project</h1>
-      {ornament()}
-      <p class="slogan" style="font-size:var(--step-1)">The resources exist. We make them visible.</p>
-    </div>
-    <div class="stack prose">
       <p>Many specialized domestic violence resources exist in Québec. Yet they are not always known to the people who could benefit from them, especially when asking for help is difficult or risky.</p>
       <p><strong>Within Reach</strong> aims to lower this barrier by making existing resources visible in everyday spaces.</p>
       <ul class="bullets">
@@ -526,15 +523,17 @@ def apropos(lang):
   </div>
 </section>
 <section class="section" id="contact">
-  <div class="wrap stack prose">
+  <div class="wrap"><div class="stack prose">
     <h2>Work with us</h2>
-    <p>Are you an organization, a support worker or a venue that would like to display our posters? Write to us.</p>
-    <ul class="contacts">
-      <li><span class="k">Email</span><a href="mailto:aporteedemain.withinreach@gmail.com">aporteedemain.withinreach@gmail.com</a></li>
-      <li><span class="k">Instagram</span><a href="https://www.instagram.com/within_reach.ca/" target="_blank" rel="noopener noreferrer">@within_reach.ca</a> <span class="x">(direct message)</span></li>
-    </ul>
-    <p class="small muted">This address is not a help service. To talk to someone, call SOS violence conjugale at 1 800 363-9010, or 911 in an emergency.</p>
-  </div>
+    <p>Do you run a business, a clinic or another space and would like a poster? Are you an organization or a support worker who would like to collaborate with us? Get in touch.</p>
+    <div class="reach">
+      <p class="reach__label">Our preferred way to communicate</p>
+      <a class="btn btn--primary" href="https://www.instagram.com/within_reach.ca/" target="_blank" rel="noopener noreferrer">Message us on Instagram · @within_reach.ca</a>
+      <p class="small muted">Send us a direct message: that's where we reply fastest.</p>
+    </div>
+    <p>You can also email us: <a href="mailto:aporteedemain.withinreach@gmail.com">aporteedemain.withinreach@gmail.com</a></p>
+    <p class="small muted">These are not help services. To talk to someone, call SOS violence conjugale at 1 800 363-9010, or 911 in an emergency.</p>
+  </div></div>
 </section>'''
     return page(lang, "a-propos", "À propos" if fr else "About", b)
 

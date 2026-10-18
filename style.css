@@ -290,5 +290,21 @@ main { display: block; }
 
 @media print { .safety, .menu-btn, .nav { display: none; } }
 
-/* About: logo + slogan */
-.about__logo { width: clamp(150px, 22vw, 240px); margin-bottom: .5rem; }
+
+/* About: brand panel (logo + slogan) beside the project text */
+.about-hero { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.3fr); gap: clamp(1.5rem, 5vw, 4rem); align-items: start; }
+.about-brand { margin: 0; background: var(--surface); border-radius: var(--radius); padding: clamp(1.5rem, 4vw, 2.5rem); display: flex; flex-direction: column; align-items: center; gap: 1.2rem; text-align: center; }
+.about-brand__logo { width: clamp(150px, 20vw, 220px); }
+.about-brand__slogan { font-family: var(--f-display); font-size: var(--step-2); line-height: 1.3; color: var(--ink); text-wrap: balance; }
+@media (max-width: 760px) {
+  .about-hero { grid-template-columns: 1fr; }
+  .about-brand { flex-direction: row; text-align: left; padding: 1.2rem; }
+  .about-brand__logo { width: 110px; flex: none; }
+  .about-brand__slogan { font-size: var(--step-1); }
+}
+/* Contact: Instagram is the preferred channel */
+.reach { display: flex; flex-direction: column; align-items: flex-start; gap: .6rem; padding: 1.2rem 1.3rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--card); }
+.reach__label { font-size: .78rem; letter-spacing: .12em; text-transform: uppercase; color: var(--rose); font-weight: 700; }
+@media (max-width: 480px) { .reach .btn { width: 100%; } }
+/* Footer slogan, larger */
+.footer-meta .slogan { font-size: var(--step-1); flex-basis: 100%; opacity: 1; }
