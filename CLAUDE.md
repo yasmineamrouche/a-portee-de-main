@@ -18,6 +18,8 @@ L'équipe n'est pas technique : explique les changements en français simple, sa
     la liste des besoins (`NEEDS`), des régions (`REGIONS`) et des types (`KINDS`).
   - `_outils/build.py` : gabarits et textes de toutes les pages, en français et en anglais.
   - Après une modification : `python3 _outils/build.py`, puis commit et push de tout (sources + .html).
+- Un seul petit script (constante `SCRIPT` dans `build.py`) détecte l'appareil pour afficher d'abord les bonnes
+  étapes « Effacer l'historique ». Sans JavaScript, toutes les étapes restent visibles : garder ce comportement.
 - `style.css` est écrit à la main (pas généré). Couleurs en variables CSS, mode sombre inclus.
 - Pages : `index`, `ressources` (par besoin), `regions`, `repertoire`, `comprendre`, `a-propos`.
   Les mêmes pages existent en anglais dans `en/`. Toute modification de texte doit être faite dans les deux langues.
