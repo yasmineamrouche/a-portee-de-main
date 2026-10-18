@@ -27,7 +27,7 @@ T = {
    ],
    hist_mine="Pour votre appareil", hist_others="Voir les autres appareils", hist_fewer="Voir seulement mon appareil",
    hist_tip="Si effacer tout l'historique risque d'attirer l'attention, supprimez seulement les pages de ce site. La navigation privée n'enregistre pas l'historique.",
-   footer_sos='Vous ne trouvez pas ce qu\'il vous faut ou souhaitez parler à quelqu\'un ? Appelez SOS violence conjugale au <a href="tel:18003639010">1 800 363-9010</a>, disponible 24/7.',
+   footer_sos='Vous ne trouvez pas ce qu\'il vous faut ou souhaitez parler à quelqu\'un ? Appelez SOS violence conjugale au <a href="tel:18003639010" data-goatcounter-click="tel-sos-pied-de-page">1 800 363-9010</a>, disponible 24/7.',
    contact="Nous joindre",
    k_tel="Tél.", k_sms="Texto", k_mail="Courriel", site_link="Site web", tool="Outil", h24="24/7",
    back="↑ Retour aux besoins", back_r="↑ Retour aux régions",
@@ -50,7 +50,7 @@ T = {
    ],
    hist_mine="For your device", hist_others="Show other devices", hist_fewer="Show only my device",
    hist_tip="If clearing all your history might draw attention, delete only the pages from this site. Private browsing does not save your history.",
-   footer_sos='Can\'t find what you need, or want to talk to someone? Call SOS violence conjugale at <a href="tel:18003639010">1 800 363-9010</a>, available 24/7.',
+   footer_sos='Can\'t find what you need, or want to talk to someone? Call SOS violence conjugale at <a href="tel:18003639010" data-goatcounter-click="tel-sos-pied-de-page">1 800 363-9010</a>, available 24/7.',
    contact="Contact us",
    k_tel="Phone", k_sms="Text", k_mail="Email", site_link="Website", tool="Tool", h24="24/7",
    back="↑ Back to needs", back_r="↑ Back to regions",
@@ -58,6 +58,13 @@ T = {
 }
 
 SCRIPT = """<script>
+/* Anonymous count (GoatCounter, no cookies) when the history panel is opened. */
+(function () {
+  var d = document.querySelectorAll("details.history");
+  for (var i = 0; i < d.length; i++) d[i].addEventListener("toggle", function () {
+    if (this.open && window.goatcounter && goatcounter.count) goatcounter.count({ path: "effacer-historique-ouvert", title: "Effacer l'historique (ouvert)", event: true });
+  });
+})();
 /* Show the history instructions for the visitor's device first. Without JavaScript, every device is listed. */
 (function () {
   var ua = navigator.userAgent, os = null;
@@ -82,7 +89,7 @@ SCRIPT = """<script>
 </script>"""
 
 EXIT_URL = "https://www.google.com/"
-EXIT_JS = "window.location.replace('https://www.google.com/');return false;"
+EXIT_JS = "try{if(window.goatcounter&&goatcounter.count)goatcounter.count({path:'quitter-rapidement',title:'Quitter rapidement',event:true})}catch(e){}window.location.replace('https://www.google.com/');return false;"
 
 def ornament(extra=""):
     return f'<div class="ornament {extra}" aria-hidden="true"><span><i></i><b></b><i></i></span></div>'
@@ -109,12 +116,13 @@ def page(lang, slug, title, body, section=None):
 <link rel="alternate" hreflang="{t['lang_code']}" href="{other}">
 {FONTS}
 <link rel="stylesheet" href="{pre}style.css">
+<script data-goatcounter="https://aporteedemain.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </head>
 <body>
 <a class="skip" href="#contenu">{E(t['skip'])}</a>
 <div class="safety" role="region" aria-label="{E(t['hist'])} / {E(t['exit'])}">
   <div class="wrap">
-    <p class="safety__911"><span class="safety__label">{E(t['emergency'])} </span><a href="tel:911">911</a> <span class="safety__label">({E(t['emergency_label'])})</span></p>
+    <p class="safety__911"><span class="safety__label">{E(t['emergency'])} </span><a href="tel:911" data-goatcounter-click="tel-911-barre">911</a> <span class="safety__label">({E(t['emergency_label'])})</span></p>
     <details class="history">
       <summary>{E(t['hist'])}</summary>
       <div class="history__panel">
@@ -130,10 +138,10 @@ def page(lang, slug, title, body, section=None):
 <header class="site-header">
   <div class="wrap">
     <a class="brand" href="index.html"><img src="{pre}img/lotus.png" alt="" width="52" height="40"><span class="brand__name">{E(t['site'])}<small>{E(t['tag'])}</small></span></a>
-    <a class="lang-quick" href="{other}" hreflang="{t['lang_code']}" lang="{t['lang_code']}" aria-label="{E(t['lang_label'])}">{t['lang_code'].upper()}</a>
+    <a class="lang-quick" href="{other}" data-goatcounter-click="langue-{t['lang_code']}" hreflang="{t['lang_code']}" lang="{t['lang_code']}" aria-label="{E(t['lang_label'])}">{t['lang_code'].upper()}</a>
     <input type="checkbox" id="menu-toggle" class="menu-toggle visually-hidden">
     <label for="menu-toggle" class="menu-btn">{E(t['menu'])}</label>
-    <nav class="nav" aria-label="Menu">{nav}<a class="lang" href="{other}" hreflang="{t['lang_code']}" lang="{t['lang_code']}">{E(t['lang_label'])}</a></nav>
+    <nav class="nav" aria-label="Menu">{nav}<a class="lang" href="{other}" data-goatcounter-click="langue-{t['lang_code']}" hreflang="{t['lang_code']}" lang="{t['lang_code']}">{E(t['lang_label'])}</a></nav>
   </div>
 </header>
 <main id="contenu">
@@ -166,9 +174,9 @@ def card(r, lang):
     for k, v, extra in r["contacts"]:
         if extra and "|" in extra: extra = extra.split("|")[0 if lang == "fr" else 1]
         x = f' <span class="x">{E(extra)}</span>' if extra else ""
-        if k == "tel": rows.append(f'<li><span class="k">{t["k_tel"]}</span><a href="tel:{digits(v)}">{E(v)}</a>{x}</li>')
-        if k == "sms": rows.append(f'<li><span class="k">{t["k_sms"]}</span><a href="sms:{digits(v)}">{E(v)}</a>{x}</li>')
-        if k == "mail": rows.append(f'<li><span class="k">{t["k_mail"]}</span><a href="mailto:{v}">{E(v)}</a>{x}</li>')
+        if k == "tel": rows.append(f'<li><span class="k">{t["k_tel"]}</span><a href="tel:{digits(v)}" data-goatcounter-click="tel-{r['id']}">{E(v)}</a>{x}</li>')
+        if k == "sms": rows.append(f'<li><span class="k">{t["k_sms"]}</span><a href="sms:{digits(v)}" data-goatcounter-click="texto-{r['id']}">{E(v)}</a>{x}</li>')
+        if k == "mail": rows.append(f'<li><span class="k">{t["k_mail"]}</span><a href="mailto:{v}" data-goatcounter-click="courriel-{r['id']}">{E(v)}</a>{x}</li>')
     contacts = f'<ul class="contacts">{"".join(rows)}</ul>' if rows else ""
     note = r.get("note_" + lang)
     note = f'<p class="note">{E(note)}</p>' if note else ""
@@ -177,7 +185,7 @@ def card(r, lang):
   <div class="card__top"><h3>{E(r["name"])}</h3>{badge}</div>
   <p>{E(r[lang])}</p>{note}
   {contacts}
-  <p class="card__site"><a href="{E(url)}" target="_blank" rel="noopener noreferrer">{t["site_link"]} : {E(host)}</a></p>
+  <p class="card__site"><a href="{E(url)}" data-goatcounter-click="site-{r['id']}" target="_blank" rel="noopener noreferrer">{t["site_link"]} : {E(host)}</a></p>
 </article></li>'''
 
 def cards(rs, lang):
@@ -214,18 +222,18 @@ def home(lang):
     <article class="panel" id="parler">
       <p class="eyebrow">Par téléphone</p>
       <h2>Parler à quelqu'un maintenant</h2>
-      <a class="bignum" href="tel:18003639010">1 800 363-9010</a>
+      <a class="bignum" href="tel:18003639010" data-goatcounter-click="tel-sos-accueil">1 800 363-9010</a>
       <ul class="facts"><li>24/7</li><li>Gratuit</li><li>Anonyme et confidentiel</li><li>Français et anglais</li></ul>
       <p><strong>SOS violence conjugale.</strong> Une intervenante vous écoute, vous aide à évaluer votre sécurité et peut appeler une maison d'hébergement pour vous. Vous n'avez pas besoin d'être certaine que c'est de la violence pour appeler.</p>
-      <p class="small muted">Violence sexuelle : Info-aide violence sexuelle, <a href="tel:18889339007">1 888 933-9007</a>.</p>
+      <p class="small muted">Violence sexuelle : Info-aide violence sexuelle, <a href="tel:18889339007" data-goatcounter-click="tel-infoaide-accueil">1 888 933-9007</a>.</p>
     </article>
     <article class="panel" id="ecrire">
       <p class="eyebrow">Par écrit</p>
       <h2>Je préfère écrire</h2>
       <ul class="contacts">
-        <li><span class="k">Texto</span><a href="sms:4386011211">438 601-1211</a></li>
-        <li><span class="k">Clavardage</span><a href="https://sosviolenceconjugale.ca/fr/clavardage" target="_blank" rel="noopener noreferrer">sosviolenceconjugale.ca/fr/clavardage</a></li>
-        <li><span class="k">Courriel</span><a href="mailto:sos@sosviolenceconjugale.ca">sos@sosviolenceconjugale.ca</a></li>
+        <li><span class="k">Texto</span><a href="sms:4386011211" data-goatcounter-click="texto-sos-accueil">438 601-1211</a></li>
+        <li><span class="k">Clavardage</span><a href="https://sosviolenceconjugale.ca/fr/clavardage" data-goatcounter-click="clavardage-sos-accueil" target="_blank" rel="noopener noreferrer">sosviolenceconjugale.ca/fr/clavardage</a></li>
+        <li><span class="k">Courriel</span><a href="mailto:sos@sosviolenceconjugale.ca" data-goatcounter-click="courriel-sos-accueil">sos@sosviolenceconjugale.ca</a></li>
       </ul>
       <p>Le même service de SOS violence conjugale, gratuit et confidentiel, par écrit. La fenêtre de clavardage s'ouvre lorsqu'une intervenante est disponible.</p>
       <p class="small muted">Si quelqu'un peut lire vos messages, pensez à effacer la conversation après l'échange.</p>
@@ -238,7 +246,7 @@ def home(lang):
     <div class="danger">
       <div class="danger__col">
         <h2 id="danger-titre">Vous êtes en danger immédiat&nbsp;?</h2>
-        <a class="num911" href="tel:911">911</a>
+        <a class="num911" href="tel:911" data-goatcounter-click="tel-911-accueil">911</a>
         <p>Appelez le 911 (police, ambulance). Si vous ne pouvez pas appeler, demandez à une personne de confiance de le faire pour vous.</p>
       </div>
       <div class="danger__col">
@@ -280,18 +288,18 @@ def home(lang):
     <article class="panel" id="parler">
       <p class="eyebrow">By phone</p>
       <h2>Talk to someone now</h2>
-      <a class="bignum" href="tel:18003639010">1 800 363-9010</a>
+      <a class="bignum" href="tel:18003639010" data-goatcounter-click="tel-sos-accueil">1 800 363-9010</a>
       <ul class="facts"><li>24/7</li><li>Free</li><li>Anonymous and confidential</li><li>English and French</li></ul>
       <p><strong>SOS violence conjugale.</strong> A worker will listen, help you assess your safety, and can call a shelter for you. You don't need to be sure it's violence to call.</p>
-      <p class="small muted">Sexual violence: Sexual Violence Helpline (Info-aide violence sexuelle), <a href="tel:18889339007">1 888 933-9007</a>.</p>
+      <p class="small muted">Sexual violence: Sexual Violence Helpline (Info-aide violence sexuelle), <a href="tel:18889339007" data-goatcounter-click="tel-infoaide-accueil">1 888 933-9007</a>.</p>
     </article>
     <article class="panel" id="ecrire">
       <p class="eyebrow">In writing</p>
       <h2>I prefer texting</h2>
       <ul class="contacts">
-        <li><span class="k">Text</span><a href="sms:4386011211">438 601-1211</a></li>
-        <li><span class="k">Chat</span><a href="https://sosviolenceconjugale.ca/en" target="_blank" rel="noopener noreferrer">sosviolenceconjugale.ca</a></li>
-        <li><span class="k">Email</span><a href="mailto:sos@sosviolenceconjugale.ca">sos@sosviolenceconjugale.ca</a></li>
+        <li><span class="k">Text</span><a href="sms:4386011211" data-goatcounter-click="texto-sos-accueil">438 601-1211</a></li>
+        <li><span class="k">Chat</span><a href="https://sosviolenceconjugale.ca/en" data-goatcounter-click="clavardage-sos-accueil" target="_blank" rel="noopener noreferrer">sosviolenceconjugale.ca</a></li>
+        <li><span class="k">Email</span><a href="mailto:sos@sosviolenceconjugale.ca" data-goatcounter-click="courriel-sos-accueil">sos@sosviolenceconjugale.ca</a></li>
       </ul>
       <p>The same free, confidential SOS violence conjugale service, in writing. The chat window opens when a worker is available.</p>
       <p class="small muted">If someone can read your messages, consider deleting the conversation afterwards.</p>
@@ -304,7 +312,7 @@ def home(lang):
     <div class="danger">
       <div class="danger__col">
         <h2 id="danger-titre">Are you in immediate danger?</h2>
-        <a class="num911" href="tel:911">911</a>
+        <a class="num911" href="tel:911" data-goatcounter-click="tel-911-accueil">911</a>
         <p>Call 911 (police, ambulance). If you can't call, ask someone you trust to call for you.</p>
       </div>
       <div class="danger__col">
@@ -345,7 +353,7 @@ def find_head(lang, cur, h1, lead):
 
 def ressources(lang):
     fr = lang == "fr"
-    tiles = "".join(f'<li><a class="tile" href="#{nid}">{E(lf if fr else le)}</a></li>' for nid, lf, le, *_ in NEEDS)
+    tiles = "".join(f'<li><a class="tile" href="#{nid}" data-goatcounter-click="besoin-{nid}">{E(lf if fr else le)}</a></li>' for nid, lf, le, *_ in NEEDS)
     tiles += f'<li><a class="tile tile--quiet" href="comprendre.html"><span>{"Je ne sais pas par où commencer" if fr else "I don&#39;t know where to start"}<small>{"Ce que fait chaque type de ressource" if fr else "What each type of resource does"}</small></span></a></li>'
     groups = []
     for nid, lf, le, inf, ine in NEEDS:
@@ -368,7 +376,7 @@ def ressources(lang):
 
 def regions(lang):
     fr = lang == "fr"
-    toc = "".join(f'<li><a href="#{rid}">{E(lf if fr else le)}</a></li>' for rid, lf, le in REGIONS)
+    toc = "".join(f'<li><a href="#{rid}" data-goatcounter-click="region-{rid}">{E(lf if fr else le)}</a></li>' for rid, lf, le in REGIONS)
     groups = []
     for rid, lf, le in REGIONS:
         rs = priority([r for r in R if rid in r["regions"]])
@@ -507,6 +515,12 @@ def apropos(lang):
     </div>
   </div>
 </section>
+<section class="section section--tint" id="confidentialite">
+  <div class="wrap"><div class="stack prose">
+    <h2>Confidentialité</h2>
+    <p>Ce site ne dépose aucun cookie et ne recueille aucune donnée personnelle. Pour évaluer le projet, nous comptons de façon anonyme les visites et certains clics (par exemple sur un numéro de téléphone) avec l'outil GoatCounter. Ces chiffres ne permettent d'identifier personne.</p>
+  </div></div>
+</section>
 <section class="section" id="contact">
   <div class="wrap"><div class="stack prose">
     <h2>Collaborer avec nous</h2>
@@ -552,6 +566,12 @@ def apropos(lang):
       </ul>
     </div>
   </div>
+</section>
+<section class="section section--tint" id="confidentialite">
+  <div class="wrap"><div class="stack prose">
+    <h2>Privacy</h2>
+    <p>This site sets no cookies and collects no personal information. To evaluate the project, we anonymously count visits and some clicks (for example on a phone number) using GoatCounter. These numbers cannot identify anyone.</p>
+  </div></div>
 </section>
 <section class="section" id="contact">
   <div class="wrap"><div class="stack prose">

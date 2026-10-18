@@ -11,12 +11,13 @@
 <link rel="alternate" hreflang="en" href="en/comprendre.html">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Gilda+Display&display=swap">
 <link rel="stylesheet" href="style.css">
+<script data-goatcounter="https://aporteedemain.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </head>
 <body>
 <a class="skip" href="#contenu">Aller au contenu</a>
 <div class="safety" role="region" aria-label="Effacer l&#x27;historique / Quitter rapidement">
   <div class="wrap">
-    <p class="safety__911"><span class="safety__label">Urgence : </span><a href="tel:911">911</a> <span class="safety__label">(danger immédiat)</span></p>
+    <p class="safety__911"><span class="safety__label">Urgence : </span><a href="tel:911" data-goatcounter-click="tel-911-barre">911</a> <span class="safety__label">(danger immédiat)</span></p>
     <details class="history">
       <summary>Effacer l&#x27;historique</summary>
       <div class="history__panel">
@@ -26,16 +27,16 @@
         <p class="tip">Si effacer tout l&#x27;historique risque d&#x27;attirer l&#x27;attention, supprimez seulement les pages de ce site. La navigation privée n&#x27;enregistre pas l&#x27;historique.</p>
       </div>
     </details>
-    <a class="exit" href="https://www.google.com/" rel="noreferrer" onclick="window.location.replace('https://www.google.com/');return false;">Quitter<span class="exit__long"> rapidement</span> ✕</a>
+    <a class="exit" href="https://www.google.com/" rel="noreferrer" onclick="try{if(window.goatcounter&&goatcounter.count)goatcounter.count({path:'quitter-rapidement',title:'Quitter rapidement',event:true})}catch(e){}window.location.replace('https://www.google.com/');return false;">Quitter<span class="exit__long"> rapidement</span> ✕</a>
   </div>
 </div>
 <header class="site-header">
   <div class="wrap">
     <a class="brand" href="index.html"><img src="img/lotus.png" alt="" width="52" height="40"><span class="brand__name">À portée de main<small>Within Reach</small></span></a>
-    <a class="lang-quick" href="en/comprendre.html" hreflang="en" lang="en" aria-label="English">EN</a>
+    <a class="lang-quick" href="en/comprendre.html" data-goatcounter-click="langue-en" hreflang="en" lang="en" aria-label="English">EN</a>
     <input type="checkbox" id="menu-toggle" class="menu-toggle visually-hidden">
     <label for="menu-toggle" class="menu-btn">Menu</label>
-    <nav class="nav" aria-label="Menu"><a href="index.html">Accueil</a><a href="ressources.html">Trouver une ressource</a><a href="comprendre.html" aria-current="page">Comprendre les ressources</a><a href="a-propos.html">À propos</a><a class="lang" href="en/comprendre.html" hreflang="en" lang="en">English</a></nav>
+    <nav class="nav" aria-label="Menu"><a href="index.html">Accueil</a><a href="ressources.html">Trouver une ressource</a><a href="comprendre.html" aria-current="page">Comprendre les ressources</a><a href="a-propos.html">À propos</a><a class="lang" href="en/comprendre.html" data-goatcounter-click="langue-en" hreflang="en" lang="en">English</a></nav>
   </div>
 </header>
 <main id="contenu">
@@ -67,7 +68,7 @@
 </main>
 <footer class="site-footer">
   <div class="wrap">
-    <p class="footer-sos">Vous ne trouvez pas ce qu'il vous faut ou souhaitez parler à quelqu'un ? Appelez SOS violence conjugale au <a href="tel:18003639010">1 800 363-9010</a>, disponible 24/7.</p>
+    <p class="footer-sos">Vous ne trouvez pas ce qu'il vous faut ou souhaitez parler à quelqu'un ? Appelez SOS violence conjugale au <a href="tel:18003639010" data-goatcounter-click="tel-sos-pied-de-page">1 800 363-9010</a>, disponible 24/7.</p>
     <div class="footer-meta">
       <span class="slogan">Les ressources existent. Nous les rendons visibles.</span>
       <a href="a-propos.html#contact">Nous joindre</a>
@@ -76,6 +77,13 @@
   </div>
 </footer>
 <script>
+/* Anonymous count (GoatCounter, no cookies) when the history panel is opened. */
+(function () {
+  var d = document.querySelectorAll("details.history");
+  for (var i = 0; i < d.length; i++) d[i].addEventListener("toggle", function () {
+    if (this.open && window.goatcounter && goatcounter.count) goatcounter.count({ path: "effacer-historique-ouvert", title: "Effacer l'historique (ouvert)", event: true });
+  });
+})();
 /* Show the history instructions for the visitor's device first. Without JavaScript, every device is listed. */
 (function () {
   var ua = navigator.userAgent, os = null;

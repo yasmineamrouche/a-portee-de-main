@@ -24,6 +24,16 @@ L'équipe n'est pas technique : explique les changements en français simple, sa
 - Pages : `index`, `ressources` (par besoin), `regions`, `repertoire`, `comprendre`, `a-propos`.
   Les mêmes pages existent en anglais dans `en/`. Toute modification de texte doit être faite dans les deux langues.
 
+## Mesure de l'impact (projet de recherche)
+- Statistiques anonymes avec **GoatCounter** (compte `aporteedemain`, tableau de bord : https://aporteedemain.goatcounter.com).
+  Aucun cookie, aucune donnée personnelle. Ne jamais ajouter Google Analytics, pixel Meta ou autre traceur.
+- Les clics comptés portent l'attribut `data-goatcounter-click="..."` (téléphones `tel-<id>`, textos, courriels,
+  sites `site-<id>`, besoins `besoin-<id>`, régions, langue). « Quitter rapidement » et l'ouverture de
+  « Effacer l'historique » sont comptés par script. Garder ces attributs quand on modifie les gabarits.
+- Chaque affiche a un code QR unique vers `/q/<lieu>` ; `_redirects` renvoie vers `/?src=<lieu>`.
+  Lieux dans `_outils/lieux.txt`, codes générés par `node _outils/qr.js` (variable `BASE` si le domaine change)
+  dans `_outils/qr/`.
+
 ## Règles à respecter
 - **Sécurité des utilisatrices avant tout.** Garder sur chaque page la barre du haut : 911, « Effacer l'historique »
   (instructions) et « Quitter rapidement » (vers google.com avec `location.replace`).

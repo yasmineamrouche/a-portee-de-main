@@ -26,3 +26,9 @@ Dossier _outils (pour Claude ou une personne technique)
 data.py contient toutes les ressources (FR/EN), build.py régénère toutes les
 pages HTML à partir de ces données : python3 _outils/build.py
 Modifier data.py puis relancer build.py met à jour une ressource partout d'un coup.
+
+Statistiques et codes QR
+- Tableau de bord des statistiques anonymes : https://aporteedemain.goatcounter.com
+- Pour un nouveau lieu d'affichage : ajoutez une ligne dans _outils/lieux.txt, puis
+  node _outils/qr.js   (ou BASE=https://votre-domaine node _outils/qr.js après un changement de domaine)
+  Les codes QR (SVG) sont créés dans _outils/qr/.

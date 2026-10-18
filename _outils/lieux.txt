@@ -1,0 +1,4 @@
+# Un lieu d'affichage par ligne. Chaque lieu reçoit son propre code QR (node _outils/qr.js).
+# Utilisez des noms courts et neutres, sans information sensible : ils apparaissent dans l'adresse.
+# Astuce : commencez par le type de lieu pour comparer facilement (hopital-, clinique-, cafe-, universite-...).
+general
