@@ -252,7 +252,7 @@ def home(lang):
 
 <section class="section section--tint" aria-label="Message important">
   <div class="wrap stack">
-    <p class="callout">Vous n'avez pas besoin d'attendre que la situation devienne grave pour demander de l'aide. Des ressources existent pour vous accompagner, quelle que soit votre situation : violence physique ou psychologique, contrôle, surveillance, menaces, isolement ou violence sexuelle. Vous pouvez également trouver du soutien si vous vous inquiétez pour une personne proche.</p>
+    <p class="callout">Vous n'avez pas besoin d'attendre que la situation devienne grave pour demander de l'aide. Des ressources existent pour vous accompagner, quelle que soit votre situation. Vous pouvez également trouver du soutien si vous vous inquiétez pour une personne proche.</p>
     <div class="actions"><a class="btn" href="ressources.html">Voir les ressources par besoin</a><a class="btn" href="comprendre.html">Je ne sais pas par où commencer</a></div>
   </div>
 </section>
@@ -318,7 +318,7 @@ def home(lang):
 
 <section class="section section--tint" aria-label="Important message">
   <div class="wrap stack">
-    <p class="callout">You don't have to wait until things get serious to ask for help. Resources exist to support you, whatever your situation: physical or psychological violence, control, monitoring, threats, isolation or sexual violence. You can also find support if you are worried about someone close to you.</p>
+    <p class="callout">You don't have to wait until things get serious to ask for help. Resources exist to support you, whatever your situation. You can also find support if you are worried about someone close to you.</p>
     <div class="actions"><a class="btn" href="ressources.html">See resources by need</a><a class="btn" href="comprendre.html">I don't know where to start</a></div>
   </div>
 </section>
