@@ -21,7 +21,8 @@
       <summary>Clear browsing history</summary>
       <div class="history__panel">
         <h2>Clear your browsing history</h2>
-        <dl><div><dt>Chrome on Android</dt><dd>Tap <b>⋮</b> → <b>Delete browsing data</b> (or ⋮ → History).</dd></div><div><dt>Safari on iPhone</dt><dd>Open <b>Settings</b> → <b>Safari</b> (or Settings → Apps → Safari) → <b>Clear History and Website Data</b>.</dd></div><div><dt>Computer (Chrome, Edge, Firefox)</dt><dd>Press <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Delete</kbd> (on Mac: <kbd>⌘</kbd> + <kbd>Shift</kbd> + <kbd>Delete</kbd>).</dd></div></dl>
+        <dl><div data-os="android"><dt>Android <span class="mine-tag">For your device</span></dt><dd><b>Chrome:</b> tap <b>⋮</b> → <b>Delete browsing data</b> (or ⋮ → History).<br><b>Samsung Internet:</b> <b>☰</b> → <b>Settings</b> → <b>Personal browsing data</b> → <b>Delete browsing data</b>.</dd></div><div data-os="ios"><dt>iPhone or iPad <span class="mine-tag">For your device</span></dt><dd><b>Safari:</b> open <b>Settings</b> → <b>Safari</b> (or Settings → Apps → Safari) → <b>Clear History and Website Data</b>.<br><b>Chrome:</b> tap <b>…</b> → <b>Delete browsing data</b>.</dd></div><div data-os="windows"><dt>Windows computer <span class="mine-tag">For your device</span></dt><dd><b>Chrome, Edge, Firefox:</b> press <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Delete</kbd>.</dd></div><div data-os="mac"><dt>Mac <span class="mine-tag">For your device</span></dt><dd><b>Chrome, Edge, Firefox:</b> press <kbd>⌘</kbd> + <kbd>Shift</kbd> + <kbd>Delete</kbd>.<br><b>Safari:</b> <b>History</b> menu → <b>Clear History</b>.</dd></div></dl>
+        <button type="button" class="hist-toggle" data-more="Show other devices" data-less="Show only my device">Show other devices</button>
         <p class="tip">If clearing all your history might draw attention, delete only the pages from this site. Private browsing does not save your history.</p>
       </div>
     </details>
@@ -31,6 +32,7 @@
 <header class="site-header">
   <div class="wrap">
     <a class="brand" href="index.html"><img src="../img/lotus.png" alt="" width="52" height="40"><span class="brand__name">Within Reach<small>À portée de main</small></span></a>
+    <a class="lang-quick" href="../comprendre.html" hreflang="fr" lang="fr" aria-label="Français">FR</a>
     <input type="checkbox" id="menu-toggle" class="menu-toggle visually-hidden">
     <label for="menu-toggle" class="menu-btn">Menu</label>
     <nav class="nav" aria-label="Menu"><a href="index.html">Home</a><a href="ressources.html">Find a resource</a><a href="comprendre.html" aria-current="page">Understanding resources</a><a href="a-propos.html">About</a><a class="lang" href="../comprendre.html" hreflang="fr" lang="fr">Français</a></nav>
@@ -73,5 +75,28 @@
     </div>
   </div>
 </footer>
+<script>
+/* Show the history instructions for the visitor's device first. Without JavaScript, every device is listed. */
+(function () {
+  var ua = navigator.userAgent, os = null;
+  if (/iPhone|iPad|iPod/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1)) os = "ios";
+  else if (/Android/.test(ua)) os = "android";
+  else if (/Macintosh|Mac OS X/.test(ua)) os = "mac";
+  else if (/Windows/.test(ua)) os = "windows";
+  if (!os) return;
+  var panels = document.querySelectorAll(".history__panel");
+  for (var i = 0; i < panels.length; i++) {
+    var p = panels[i], mine = p.querySelector('[data-os="' + os + '"]'), btn = p.querySelector(".hist-toggle");
+    if (!mine || !btn) continue;
+    mine.classList.add("is-mine");
+    mine.parentNode.insertBefore(mine, mine.parentNode.firstChild);
+    p.classList.add("has-mine");
+    btn.addEventListener("click", function () {
+      var panel = this.closest(".history__panel"), open = panel.classList.toggle("show-all");
+      this.textContent = open ? this.getAttribute("data-less") : this.getAttribute("data-more");
+    });
+  }
+})();
+</script>
 </body>
 </html>

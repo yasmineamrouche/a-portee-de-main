@@ -21,7 +21,8 @@
       <summary>Effacer l&#x27;historique</summary>
       <div class="history__panel">
         <h2>Effacer l&#x27;historique de navigation</h2>
-        <dl><div><dt>Chrome sur Android</dt><dd>Appuyez sur <b>⋮</b> → <b>Supprimer les données de navigation</b> (ou ⋮ → Historique).</dd></div><div><dt>Safari sur iPhone</dt><dd>Ouvrez <b>Réglages</b> → <b>Safari</b> (ou Réglages → Apps → Safari) → <b>Effacer historique et données de site</b>.</dd></div><div><dt>Ordinateur (Chrome, Edge, Firefox)</dt><dd>Appuyez sur <kbd>Ctrl</kbd> + <kbd>Maj</kbd> + <kbd>Suppr</kbd> (sur Mac : <kbd>⌘</kbd> + <kbd>Maj</kbd> + <kbd>Suppr</kbd>).</dd></div></dl>
+        <dl><div data-os="android"><dt>Android <span class="mine-tag">Pour votre appareil</span></dt><dd><b>Chrome :</b> appuyez sur <b>⋮</b> → <b>Supprimer les données de navigation</b> (ou ⋮ → Historique).<br><b>Samsung Internet :</b> <b>☰</b> → <b>Paramètres</b> → <b>Données de navigation personnelles</b> → <b>Supprimer les données de navigation</b>.</dd></div><div data-os="ios"><dt>iPhone ou iPad <span class="mine-tag">Pour votre appareil</span></dt><dd><b>Safari :</b> ouvrez <b>Réglages</b> → <b>Safari</b> (ou Réglages → Apps → Safari) → <b>Effacer historique et données de site</b>.<br><b>Chrome :</b> appuyez sur <b>…</b> → <b>Supprimer les données de navigation</b>.</dd></div><div data-os="windows"><dt>Ordinateur Windows <span class="mine-tag">Pour votre appareil</span></dt><dd><b>Chrome, Edge, Firefox :</b> appuyez sur <kbd>Ctrl</kbd> + <kbd>Maj</kbd> + <kbd>Suppr</kbd>.</dd></div><div data-os="mac"><dt>Mac <span class="mine-tag">Pour votre appareil</span></dt><dd><b>Chrome, Edge, Firefox :</b> appuyez sur <kbd>⌘</kbd> + <kbd>Maj</kbd> + <kbd>Suppr</kbd>.<br><b>Safari :</b> menu <b>Historique</b> → <b>Effacer l'historique</b>.</dd></div></dl>
+        <button type="button" class="hist-toggle" data-more="Voir les autres appareils" data-less="Voir seulement mon appareil">Voir les autres appareils</button>
         <p class="tip">Si effacer tout l&#x27;historique risque d&#x27;attirer l&#x27;attention, supprimez seulement les pages de ce site. La navigation privée n&#x27;enregistre pas l&#x27;historique.</p>
       </div>
     </details>
@@ -31,6 +32,7 @@
 <header class="site-header">
   <div class="wrap">
     <a class="brand" href="index.html"><img src="img/lotus.png" alt="" width="52" height="40"><span class="brand__name">À portée de main<small>Within Reach</small></span></a>
+    <a class="lang-quick" href="en/comprendre.html" hreflang="en" lang="en" aria-label="English">EN</a>
     <input type="checkbox" id="menu-toggle" class="menu-toggle visually-hidden">
     <label for="menu-toggle" class="menu-btn">Menu</label>
     <nav class="nav" aria-label="Menu"><a href="index.html">Accueil</a><a href="ressources.html">Trouver une ressource</a><a href="comprendre.html" aria-current="page">Comprendre les ressources</a><a href="a-propos.html">À propos</a><a class="lang" href="en/comprendre.html" hreflang="en" lang="en">English</a></nav>
@@ -73,5 +75,28 @@
     </div>
   </div>
 </footer>
+<script>
+/* Show the history instructions for the visitor's device first. Without JavaScript, every device is listed. */
+(function () {
+  var ua = navigator.userAgent, os = null;
+  if (/iPhone|iPad|iPod/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1)) os = "ios";
+  else if (/Android/.test(ua)) os = "android";
+  else if (/Macintosh|Mac OS X/.test(ua)) os = "mac";
+  else if (/Windows/.test(ua)) os = "windows";
+  if (!os) return;
+  var panels = document.querySelectorAll(".history__panel");
+  for (var i = 0; i < panels.length; i++) {
+    var p = panels[i], mine = p.querySelector('[data-os="' + os + '"]'), btn = p.querySelector(".hist-toggle");
+    if (!mine || !btn) continue;
+    mine.classList.add("is-mine");
+    mine.parentNode.insertBefore(mine, mine.parentNode.firstChild);
+    p.classList.add("has-mine");
+    btn.addEventListener("click", function () {
+      var panel = this.closest(".history__panel"), open = panel.classList.toggle("show-all");
+      this.textContent = open ? this.getAttribute("data-less") : this.getAttribute("data-more");
+    });
+  }
+})();
+</script>
 </body>
 </html>

@@ -20,10 +20,12 @@ T = {
    lang_label="English", lang_code="en",
    hist_title="Effacer l'historique de navigation",
    hist_items=[
-     ("Chrome sur Android","Appuyez sur <b>⋮</b> → <b>Supprimer les données de navigation</b> (ou ⋮ → Historique)."),
-     ("Safari sur iPhone","Ouvrez <b>Réglages</b> → <b>Safari</b> (ou Réglages → Apps → Safari) → <b>Effacer historique et données de site</b>."),
-     ("Ordinateur (Chrome, Edge, Firefox)","Appuyez sur <kbd>Ctrl</kbd> + <kbd>Maj</kbd> + <kbd>Suppr</kbd> (sur Mac : <kbd>⌘</kbd> + <kbd>Maj</kbd> + <kbd>Suppr</kbd>)."),
+     ("android","Android","<b>Chrome :</b> appuyez sur <b>⋮</b> → <b>Supprimer les données de navigation</b> (ou ⋮ → Historique).<br><b>Samsung Internet :</b> <b>☰</b> → <b>Paramètres</b> → <b>Données de navigation personnelles</b> → <b>Supprimer les données de navigation</b>."),
+     ("ios","iPhone ou iPad","<b>Safari :</b> ouvrez <b>Réglages</b> → <b>Safari</b> (ou Réglages → Apps → Safari) → <b>Effacer historique et données de site</b>.<br><b>Chrome :</b> appuyez sur <b>…</b> → <b>Supprimer les données de navigation</b>."),
+     ("windows","Ordinateur Windows","<b>Chrome, Edge, Firefox :</b> appuyez sur <kbd>Ctrl</kbd> + <kbd>Maj</kbd> + <kbd>Suppr</kbd>."),
+     ("mac","Mac","<b>Chrome, Edge, Firefox :</b> appuyez sur <kbd>⌘</kbd> + <kbd>Maj</kbd> + <kbd>Suppr</kbd>.<br><b>Safari :</b> menu <b>Historique</b> → <b>Effacer l'historique</b>."),
    ],
+   hist_mine="Pour votre appareil", hist_others="Voir les autres appareils", hist_fewer="Voir seulement mon appareil",
    hist_tip="Si effacer tout l'historique risque d'attirer l'attention, supprimez seulement les pages de ce site. La navigation privée n'enregistre pas l'historique.",
    footer_sos='Vous ne trouvez pas ce qu\'il vous faut ou souhaitez parler à quelqu\'un ? Appelez SOS violence conjugale au <a href="tel:18003639010">1 800 363-9010</a>, disponible 24/7.',
    contact="Nous joindre",
@@ -41,10 +43,12 @@ T = {
    lang_label="Français", lang_code="fr",
    hist_title="Clear your browsing history",
    hist_items=[
-     ("Chrome on Android","Tap <b>⋮</b> → <b>Delete browsing data</b> (or ⋮ → History)."),
-     ("Safari on iPhone","Open <b>Settings</b> → <b>Safari</b> (or Settings → Apps → Safari) → <b>Clear History and Website Data</b>."),
-     ("Computer (Chrome, Edge, Firefox)","Press <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Delete</kbd> (on Mac: <kbd>⌘</kbd> + <kbd>Shift</kbd> + <kbd>Delete</kbd>)."),
+     ("android","Android","<b>Chrome:</b> tap <b>⋮</b> → <b>Delete browsing data</b> (or ⋮ → History).<br><b>Samsung Internet:</b> <b>☰</b> → <b>Settings</b> → <b>Personal browsing data</b> → <b>Delete browsing data</b>."),
+     ("ios","iPhone or iPad","<b>Safari:</b> open <b>Settings</b> → <b>Safari</b> (or Settings → Apps → Safari) → <b>Clear History and Website Data</b>.<br><b>Chrome:</b> tap <b>…</b> → <b>Delete browsing data</b>."),
+     ("windows","Windows computer","<b>Chrome, Edge, Firefox:</b> press <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>Delete</kbd>."),
+     ("mac","Mac","<b>Chrome, Edge, Firefox:</b> press <kbd>⌘</kbd> + <kbd>Shift</kbd> + <kbd>Delete</kbd>.<br><b>Safari:</b> <b>History</b> menu → <b>Clear History</b>."),
    ],
+   hist_mine="For your device", hist_others="Show other devices", hist_fewer="Show only my device",
    hist_tip="If clearing all your history might draw attention, delete only the pages from this site. Private browsing does not save your history.",
    footer_sos='Can\'t find what you need, or want to talk to someone? Call SOS violence conjugale at <a href="tel:18003639010">1 800 363-9010</a>, available 24/7.',
    contact="Contact us",
@@ -52,6 +56,30 @@ T = {
    back="↑ Back to needs", back_r="↑ Back to regions",
  ),
 }
+
+SCRIPT = """<script>
+/* Show the history instructions for the visitor's device first. Without JavaScript, every device is listed. */
+(function () {
+  var ua = navigator.userAgent, os = null;
+  if (/iPhone|iPad|iPod/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1)) os = "ios";
+  else if (/Android/.test(ua)) os = "android";
+  else if (/Macintosh|Mac OS X/.test(ua)) os = "mac";
+  else if (/Windows/.test(ua)) os = "windows";
+  if (!os) return;
+  var panels = document.querySelectorAll(".history__panel");
+  for (var i = 0; i < panels.length; i++) {
+    var p = panels[i], mine = p.querySelector('[data-os="' + os + '"]'), btn = p.querySelector(".hist-toggle");
+    if (!mine || !btn) continue;
+    mine.classList.add("is-mine");
+    mine.parentNode.insertBefore(mine, mine.parentNode.firstChild);
+    p.classList.add("has-mine");
+    btn.addEventListener("click", function () {
+      var panel = this.closest(".history__panel"), open = panel.classList.toggle("show-all");
+      this.textContent = open ? this.getAttribute("data-less") : this.getAttribute("data-more");
+    });
+  }
+})();
+</script>"""
 
 EXIT_URL = "https://www.google.com/"
 EXIT_JS = "window.location.replace('https://www.google.com/');return false;"
@@ -66,7 +94,7 @@ def page(lang, slug, title, body, section=None):
     navcur = section or slug
     nav = "".join(
         f'<a href="{s}.html"{" aria-current=\"page\"" if s == navcur else ""}>{E(lbl)}</a>' for s, lbl in t["nav"])
-    hist_items = "".join(f"<div><dt>{E(a)}</dt><dd>{b}</dd></div>" for a, b in t["hist_items"])
+    hist_items = "".join(f'<div data-os="{o}"><dt>{E(a)} <span class="mine-tag">{E(t["hist_mine"])}</span></dt><dd>{b}</dd></div>' for o, a, b in t["hist_items"])
     doc_title = t["site"] if slug == "index" else f"{title} · {t['site']}"
     return f'''<!DOCTYPE html>
 <html lang="{lang}">
@@ -92,6 +120,7 @@ def page(lang, slug, title, body, section=None):
       <div class="history__panel">
         <h2>{E(t['hist_title'])}</h2>
         <dl>{hist_items}</dl>
+        <button type="button" class="hist-toggle" data-more="{E(t['hist_others'])}" data-less="{E(t['hist_fewer'])}">{E(t['hist_others'])}</button>
         <p class="tip">{E(t['hist_tip'])}</p>
       </div>
     </details>
@@ -101,6 +130,7 @@ def page(lang, slug, title, body, section=None):
 <header class="site-header">
   <div class="wrap">
     <a class="brand" href="index.html"><img src="{pre}img/lotus.png" alt="" width="52" height="40"><span class="brand__name">{E(t['site'])}<small>{E(t['tag'])}</small></span></a>
+    <a class="lang-quick" href="{other}" hreflang="{t['lang_code']}" lang="{t['lang_code']}" aria-label="{E(t['lang_label'])}">{t['lang_code'].upper()}</a>
     <input type="checkbox" id="menu-toggle" class="menu-toggle visually-hidden">
     <label for="menu-toggle" class="menu-btn">{E(t['menu'])}</label>
     <nav class="nav" aria-label="Menu">{nav}<a class="lang" href="{other}" hreflang="{t['lang_code']}" lang="{t['lang_code']}">{E(t['lang_label'])}</a></nav>
@@ -119,6 +149,7 @@ def page(lang, slug, title, body, section=None):
     </div>
   </div>
 </footer>
+{SCRIPT}
 </body>
 </html>
 '''
